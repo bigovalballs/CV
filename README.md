@@ -36,7 +36,32 @@ Para executar o algoritmo genético, basta compilar o código-fonte Java.
   - **getAlpha**: Este método retorna o melhor cromossomo da população. O melhor cromossomo é o cromossomo com o caminho mais curto.
   - **init**: Este método inicializa a população de cromossomos aleatorios.
   - **update**: Este método atualiza a população de cromossomos. O método de atualização funciona seguindo as etapas a seguir:
-    - **Crossover**: A etapa de crossover envolve selecionar aleatoriamente dois cromossomos e trocar genes entre eles. Isso ajuda a criar novos cromossomos que são diferentes dos cromossomos existentes.
-    - **Mutacao**: A etapa de mutação envolve alterar aleatoriamente os genes de um cromossomo. Isso ajuda a introduzir novas variações na população.
-    - **Spawn**: A etapa de geração envolve criar novos cromossomos aleatoriamente. Isso ajuda a manter o tamanho da população constante.
-    - **Selecao**: A etapa de seleção envolve selecionar os cromossomos mais aptos da população. Os cromossomos mais aptos são aqueles com os caminhos mais curtos. Os cromossomos selecionados são então usados para criar a próxima geração de cromossomos.
+    - **Crossover**: Seleciona aleatoriamente dois cromossomos e trocar genes entre eles. Isso ajuda a criar novos cromossomos que são diferentes dos cromossomos existentes.
+    - **Mutacao**: Altera aleatoriamente os genes de um cromossomo. Isso ajuda a introduzir novas variações na população.
+    - **Spawn**: Cria novos cromossomos aleatoriamente. Isso ajuda a manter o tamanho da população constante.
+    - **Selecao**: Seleciona os cromossomos mais aptos da população. Os cromossomos mais aptos são aqueles com os caminhos mais curtos. Os cromossomos selecionados são então usados para criar a próxima geração de cromossomos.
+
+## CVGene
+
+- Essa classe representa um gene, que é uma cidade no problema do caixeiro viajante. 
+- A classe **CVGene** possui os seguintes métodos:
+  - **CVGene**: Este construtor cria um novo gene com as cordenadas.
+    - **x**: A coordenada *x* da cidade.
+    - **y**: A coordenada *y* da cidade.
+  - **toString**: Retorna uma representação em string do gene.
+  - **getX**: Retorna a coordenada *x* do gene.
+  - **getY**: Retorna a coordenada *y* do gene.
+  - **distancia**: Retorna a distância entre o gene e o gene especificado. A distância é calculada usando o teorema de Pitágoras.
+  - **equals**: Retorna true se o objeto especificado for igual ao gene. Dois genes são iguais se tiverem a mesma coordenada x e coordenada y.
+  - **hashCode**: Retorna um código hash para o gene. O código hash é calculado usando a coordenada x e coordenada y do gene.
+
+## CVCromosso
+
+- Essa classe representa um cromossomo, que é uma possível solução para o problema do caixeiro viajante.
+- A classe CVCromosso possui os seguintes métodos:
+  - **getDistancia**: Retorna a distância total do cromossomo.
+  - **CVCromosso**: Este construtor cria um novo cromossomo com a lista especificada de cidades(*genes*).
+  - **getCromossomo**: Retorna a lista de cidades(*genes*) no cromossomo.
+  - **calcularDistancia**: Calcula a distância total do cromossomo. A distância é calculada somando as distâncias entre cada par de cidades(*genes*) consecutivas.
+  - **crossover**: Realiza uma operação de *crossover* no cromossomo e no cromossomo especificado. A operação de *crossover* envolve a troca de *genes* entre os dois cromossomos.
+  - **mutar**: Realiza uma operação de *mutação* no cromossomo. A operação de *mutação* envolve a troca aleatória de dois *genes* no cromossomo.
