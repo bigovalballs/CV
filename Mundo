@@ -1,0 +1,83 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Scanner;
+
+public class Mundo extends JPanel {
+	static Scanner sc = new Scanner(System.in);
+	// Atributos da classe
+    private final CVPopulacao populacao;// A população de indivíduos
+    private final AtomicInteger geracao;// O número da geração atual
+    static final int WIDTH = 800;// Largura da janela
+    static final int HEIGHT = 600;// Altura da janela
+    
+  
+    // Construtor da classe
+    private Mundo() {
+    	
+    	
+    	// Configura o painel da simulação
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));// Define o tamanho do painel
+        setBackground(Color.BLACK);// Define a cor de fundo do painel
+        // Cria a população inicial de indivíduos
+        System.out.println("Quatidade da população: " );
+        int pop = sc.nextInt();
+        this.populacao = new CVPopulacao(CVUtils.CIDADES, pop);
+        // Inicializa o contador de gerações
+        this.geracao = new AtomicInteger(0);
+        System.out.println("Velocidade do promgama em MS : " );
+        int tick = sc.nextInt();
+        // Cria um temporizador que atualiza a população e redesenha o painel
+        final Timer timer = new Timer(tick, (ActionEvent e) -> {
+            this.populacao.update();
+            repaint();
+        });
+        timer.start();
+    }
+    // Sobrescreve o método paintComponent para desenhar o ambiente da simulação
+    @Override
+    public void paintComponent(final Graphics graficos) {
+        super.paintComponent(graficos);// Chama o método paintComponent
+        final Graphics2D g = (Graphics2D) graficos;// Cria um objeto Graphics2D para desenhar
+        // Define a cor e o estilo dos desenhos
+        g.setColor(Color.CYAN);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        // Desenha o número da geração atual, o tamanho da população e o melhor caminho
+        g.drawString("Geração : " +this.geracao.incrementAndGet(), 350, 15);
+        g.drawString("População : " +this.populacao.getPopulacao().size(), 150, 15);
+        g.drawString("Melhor Caminho : "
+                +String.format("%.2f", this.populacao.getAlpha().getDistancia()), 500, 15);
+        // Desenha o melhor cromossomo (caminho) encontrado até o momento
+        desenhaMelhorCromossomo(g);
+    }
+    // Método que desenha o melhor cromossomo encontrado até o momento
+    private void desenhaMelhorCromossomo(final Graphics2D g) {
+        final java.util.List<CVGene> cromossomo = this.populacao.getAlpha().getCromossomo();// Obtém o melhor cromossomo
+        g.setColor(Color.WHITE);// Define a cor dos segmentos de linha
+        for(int i = 0; i < cromossomo.size() - 1; i++) {// Desenha cada segmento de linha
+            CVGene gene = cromossomo.get(i);
+            CVGene vizinho = cromossomo.get(i + 1);
+            g.drawLine(gene.getX(), gene.getY(), vizinho.getX(), vizinho.getY());
+        }
+        g.setColor(Color.RED);// Define a cor dos pontos
+        for(final CVGene gene : cromossomo) {// Desenha cada ponto
+            g.fillOval(gene.getX(), gene.getY(), 5, 5);
+        }
+    }
+    //  exibir a interface gráfica
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            final JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            frame.setTitle("Caixeiro Viajante");// titulo
+            frame.setResizable(true);//capacidade de ser redimensionada
+            frame.add(new Mundo(), BorderLayout.CENTER);//adição do painel principal e definição da posição na tela
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);//exibição
+        });
+    }
+
+
+}
