@@ -13,7 +13,7 @@ Para executar o algoritmo genético, basta compilar o código-fonte Java.
 https://github.com/bigovalballs/CV/assets/109481745/29cea702-c7b2-4ac1-a3ed-55181f6e24f5
 
 
-Dados do teste: População: 100 / Número de cidades : 50 / Velocidade de Updates : 10ms / Plateau : Geração 293
+Dados do teste: População: 100 / Número de cidades : 50 / Velocidade de Updates : 10ms / Plateau : Geração 415
 
 
 https://github.com/bigovalballs/CV/assets/109481745/d31c4915-7408-47bd-81ee-a31b687ecfdc
