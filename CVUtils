@@ -15,7 +15,7 @@ public class CVUtils {
 	 
     // Criação de uma constante Random com seed fixa, para seed aleatoria é só deixar o espaço de seed vazio ex: Random();
     private final static Random R = new Random(10000);
-    // Criação de um array constante de objetos TSPGene contendo dados gerados
+    // Criação de um array constante de objetos CVGene contendo dados gerados
     static final CVGene[] CIDADES = generateData(getNumCidades());
     // Construtor para evitar instanciação indevida da classe
     private CVUtils() {
