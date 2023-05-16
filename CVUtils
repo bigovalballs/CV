@@ -24,7 +24,7 @@ public class CVUtils {
     // Método para gerar dados aleatórios de acordo com um número específico de pontos
     private static CVGene[] generateData(final int numDataPoints) {
         final CVGene[] data = new CVGene[numDataPoints];
-        for(int i = 0; i < numDataPoints; i++) {// Criação de um novo objeto TSPGene com coordenadas x e y geradas aleatoriament
+        for(int i = 0; i < numDataPoints; i++) {// Criação de um novo objeto CVGene com coordenadas x e y geradas aleatoriament
             data[i] = new CVGene(CVUtils.randomIndex(Mundo.WIDTH),
                                   CVUtils.randomIndex(Mundo.HEIGHT));
         }
