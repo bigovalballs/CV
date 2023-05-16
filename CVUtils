@@ -13,7 +13,7 @@ public class CVUtils {
         return numcidades;
     }
 	 
-	// Criação de uma constante Random com seed fixa
+    // Criação de uma constante Random com seed fixa, para seed aleatoria é só deixar o espaço de seed vazio ex: Random();
     private final static Random R = new Random(10000);
     // Criação de um array constante de objetos TSPGene contendo dados gerados
     static final CVGene[] CIDADES = generateData(getNumCidades());
