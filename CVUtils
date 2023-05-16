@@ -1,0 +1,55 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.stream.IntStream;
+
+public class CVUtils {
+	static Scanner sc = new Scanner(System.in);
+	
+	public static int getNumCidades() {
+        System.out.print("Digite o número de cidades: ");
+        int numcidades = sc.nextInt();
+        return numcidades;
+    }
+	 
+	// Criação de uma constante Random com seed fixa
+    private final static Random R = new Random(10000);
+    // Criação de um array constante de objetos TSPGene contendo dados gerados
+    static final CVGene[] CIDADES = generateData(getNumCidades());
+    // Construtor para evitar instanciação indevida da classe
+    private CVUtils() {
+        throw new RuntimeException("No!");
+    }
+    // Método para gerar dados aleatórios de acordo com um número específico de pontos
+    private static CVGene[] generateData(final int numDataPoints) {
+        final CVGene[] data = new CVGene[numDataPoints];
+        for(int i = 0; i < numDataPoints; i++) {// Criação de um novo objeto TSPGene com coordenadas x e y geradas aleatoriament
+            data[i] = new CVGene(CVUtils.randomIndex(Mundo.WIDTH),
+                                  CVUtils.randomIndex(Mundo.HEIGHT));
+        }
+        return data;
+    }
+    // Método  para gerar um índice aleatório dentro de um limite específico
+    static int randomIndex(final int limite) {
+        return R.nextInt(limite);
+    }
+    // Método para dividir uma lista em duas listas aleatórias
+    static<T> List<T>[] split(final List<T> lista) {
+        final List<T> primeiro = new ArrayList<>();
+        final List<T> segundo = new ArrayList<>();
+        final int tamanho = lista.size();
+        final int pIndex = 1 + CVUtils.randomIndex(lista.size());
+        IntStream.range(0, tamanho).forEach(i -> {
+            if(i < (tamanho+1)/pIndex) {
+                primeiro.add(lista.get(i));
+            } else {
+                segundo.add(lista.get(i));
+            }
+        });
+        // Retorna um array contendo as duas listas criadas
+        return (List<T>[]) new List[] {primeiro, segundo};
+    }
+
+
+}
