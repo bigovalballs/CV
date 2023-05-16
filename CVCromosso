@@ -1,0 +1,110 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+//Esta classe representa um cromossomo, Um cromossomo é uma sequência de cidades.
+public class CVCromosso {
+	// Lista de cidades no cromossomo
+    private final List<CVGene> cromossomo;
+    // total de distancias percorridas pelo cromossomo
+    private final double distancia;
+
+    public double getDistancia() {
+        return this.distancia;
+    }
+    // Cria um novo cromossomo com a lista fornecida de cidades.
+    private CVCromosso(final List<CVGene> cromossomo) {
+        this.cromossomo = Collections.unmodifiableList(cromossomo);
+        this.distancia = calcularDistancia();
+    }
+
+    static CVCromosso create(final CVGene[] points) {
+        final List<CVGene> genes = Arrays.asList(Arrays.copyOf(points, points.length));
+        Collections.shuffle(genes);
+        return new CVCromosso(genes);
+    }
+    // Obtem uma representação do cromossomo
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        for(final CVGene gene : this.cromossomo) {
+            builder.append(gene.toString()).append((" : "));
+        }
+        return builder.toString();
+    }
+    // Obtem a lista de cidades no cromossomo
+    List<CVGene> getCromossomo() {
+        return this.cromossomo;
+    }
+    // Calcula a distancia total viajada pelo cromossomo
+    double calcularDistancia() {
+        double total = 0.0f;
+        for(int i = 0; i < this.cromossomo.size() - 1; i++) {
+            total += this.cromossomo.get(i).distancia(this.cromossomo.get(i+1));
+        }
+        return total;
+    }
+    // Cruzameto de cromossomos.
+    // Retorna um array com dois novos cromossomos.
+    CVCromosso[] crossOver(final CVCromosso other) {
+    	// divide os cromossomos em duas partes
+        final List<CVGene>[] DNA = CVUtils.split(this.cromossomo);
+        final List<CVGene>[] otherDNA = CVUtils.split(other.getCromossomo());
+        // Cria novo cromossomo
+        final List<CVGene> primeiroCrossover = new ArrayList<>(DNA[0]);
+        // Adiciona os genes do outro cromossomo ao primeiro cromossomo.
+        for(CVGene gene : otherDNA[0]) {
+            if(!primeiroCrossover.contains(gene)) {
+                primeiroCrossover.add(gene);
+            }
+        }
+
+        for(CVGene gene : otherDNA[1]) {
+            if(!primeiroCrossover.contains(gene)) {
+                primeiroCrossover.add(gene);
+            }
+        }
+        // Cria novo cromossomo
+        final List<CVGene> segundoCrossover = new ArrayList<>(otherDNA[1]);
+        // Adiciona os genes do outro cromossomo ao segundo cromossomo.
+        for(CVGene gene : DNA[0]) {
+            if(!segundoCrossover.contains(gene)) {
+                segundoCrossover.add(gene);
+            }
+        }
+        // Checa se os cromossomos sao validos
+        for(CVGene gene : DNA[1]) {
+            if(!segundoCrossover.contains(gene)) {
+                segundoCrossover.add(gene);
+            }
+        }
+        
+        if(primeiroCrossover.size() != CVUtils.CIDADES.length ||
+           segundoCrossover.size() != CVUtils.CIDADES.length) {
+            throw new RuntimeException("oops!");
+        }
+        // Retorna novos cromossomos
+        return new CVCromosso[] {
+                new CVCromosso(primeiroCrossover),
+                new CVCromosso(segundoCrossover)
+        };
+    }
+    // Mutação do cromossomo ao trocar dois genes aleatórios
+    CVCromosso mutar() {
+    	// Cria uma cópia do cromossomo.
+        final List<CVGene> copy = new ArrayList<>(this.cromossomo);
+        // Obtém dois índices aleatórios.
+        int indexA = CVUtils.randomIndex(copy.size());
+        int indexB = CVUtils.randomIndex(copy.size());
+        // Enquanto os índices forem iguais, obtem dois novos índices aleatórios.
+        while(indexA == indexB) {
+            indexA = CVUtils.randomIndex(copy.size());
+            indexB = CVUtils.randomIndex(copy.size());
+        }
+        Collections.swap(copy, indexA, indexB);
+        return new CVCromosso(copy);
+    }
+
+
+}
