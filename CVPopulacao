@@ -1,0 +1,84 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class CVPopulacao {
+
+    private List<CVCromosso> populacao;// lista de cromossomos da população
+    private final int tamanhoInicial;// tamanho inicial da população
+   
+    
+    // Construtor da classe
+    CVPopulacao(final CVGene[] pontos, final int tamanhoInicial) {
+        this.populacao = init(pontos, tamanhoInicial);
+        this.tamanhoInicial = tamanhoInicial;
+    }
+    
+  
+    
+    // Método para obter a lista de cromossomos da população
+    List<CVCromosso> getPopulacao() {
+        return this.populacao;
+    }
+    // Método para obter o cromossomo de menor distância (fitness) da população
+    CVCromosso getAlpha() {
+        return this.populacao.get(0);
+    }
+    // Método para inicializar a população com cromossomos aleatórios
+    private List<CVCromosso> init(final CVGene[] pontos, final int tamanhoInicial) {
+        final List<CVCromosso> eden = new ArrayList<>();
+        for(int i = 0; i < tamanhoInicial; i++) {
+            final CVCromosso cromossomo = CVCromosso.create(pontos);
+            eden.add(cromossomo);
+        }
+        return eden;
+    }
+    // Método que atualiza a população com os processos de seleção, cruzamento, mutação e "spawn"
+    void update() {
+        doCrossOver();
+        doMutacao();
+        doSpawn();
+        doSelecao();
+    }
+    // Método que realiza a seleção dos cromossomos mais aptos (menor distância) da população
+    private void doSelecao() {
+        this.populacao.sort(Comparator.comparingDouble(CVCromosso::getDistancia));
+        this.populacao = this.populacao.stream().limit(this.tamanhoInicial).collect(Collectors.toList());
+    }
+    // Método que adiciona novos cromossomos à população (criados a partir de cromossomos aleatórios)
+    private void doSpawn() {
+        IntStream.range(0, 1000).forEach(e -> this.populacao.add(CVCromosso.create(CVUtils.CIDADES)));
+    }
+    // Método que realiza a mutação de uma parcela dos cromossomos da população
+    private void doMutacao() {
+        final List<CVCromosso> novaPopulacao = new ArrayList<>();
+        for(int i = 0; i < this.populacao.size()/10; i++) {
+            final CVCromosso mutacao = this.populacao.get(CVUtils.randomIndex(this.populacao.size())).mutar();
+            novaPopulacao.add(mutacao);
+        }
+        this.populacao.addAll(novaPopulacao);
+    }
+    // Método que realiza o cruzamento entre pares de cromossomos da população
+    private void doCrossOver() {
+
+        final List<CVCromosso> novaPopulacao = new ArrayList<>();
+        for(final CVCromosso cromossomo : this.populacao) {
+            final CVCromosso partner = getCrossOverParceiro(cromossomo);
+            novaPopulacao.addAll(Arrays.asList(cromossomo.crossOver(partner)));
+        }
+        this.populacao.addAll(novaPopulacao);
+    }
+    // Método que retorna um cromossomo aleatório para realizar o cruzamento com um dado cromossomo
+    private CVCromosso getCrossOverParceiro(final CVCromosso cromossomo) {
+        CVCromosso partner = this.populacao.get(CVUtils.randomIndex(this.populacao.size()));
+        while(cromossomo == partner) {
+            partner = this.populacao.get(CVUtils.randomIndex(this.populacao.size()));
+        }
+        return partner;
+    }
+
+
+}
