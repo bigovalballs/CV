@@ -36,7 +36,7 @@ Para executar o algoritmo genético, basta compilar o código-fonte Java.
   - **getAlpha**: Este método retorna o melhor cromossomo da população. O melhor cromossomo é o cromossomo com o caminho mais curto.
   - **init**: Este método inicializa a população de cromossomos aleatorios.
   - **update**: Este método atualiza a população de cromossomos. O método de atualização funciona seguindo as etapas a seguir:
-   - **Crossover**: A etapa de crossover envolve selecionar aleatoriamente dois cromossomos e trocar genes entre eles. Isso ajuda a criar novos cromossomos que são diferentes dos cromossomos existentes.
-   - **Mutacao**: A etapa de mutação envolve alterar aleatoriamente os genes de um cromossomo. Isso ajuda a introduzir novas variações na população.
-   - **Spawn**: A etapa de geração envolve criar novos cromossomos aleatoriamente. Isso ajuda a manter o tamanho da população constante.
-   - **Selecao**: A etapa de seleção envolve selecionar os cromossomos mais aptos da população. Os cromossomos mais aptos são aqueles com os caminhos mais curtos. Os cromossomos selecionados são então usados para criar a próxima geração de cromossomos.
+    - **Crossover**: A etapa de crossover envolve selecionar aleatoriamente dois cromossomos e trocar genes entre eles. Isso ajuda a criar novos cromossomos que são diferentes dos cromossomos existentes.
+    - **Mutacao**: A etapa de mutação envolve alterar aleatoriamente os genes de um cromossomo. Isso ajuda a introduzir novas variações na população.
+    - **Spawn**: A etapa de geração envolve criar novos cromossomos aleatoriamente. Isso ajuda a manter o tamanho da população constante.
+    - **Selecao**: A etapa de seleção envolve selecionar os cromossomos mais aptos da população. Os cromossomos mais aptos são aqueles com os caminhos mais curtos. Os cromossomos selecionados são então usados para criar a próxima geração de cromossomos.
