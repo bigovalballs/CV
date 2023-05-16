@@ -10,6 +10,8 @@ O algoritmo genético é encerrado após um certo número de gerações ou quand
 
 Para executar o algoritmo genético, basta compilar o código-fonte Java.
 
+https://github.com/bigovalballs/CV/assets/109481745/29cea702-c7b2-4ac1-a3ed-55181f6e24f5
+
 ## Mundo
 
 - A classe **Mundo** permite que o programa exiba os resultados do algoritmo em uma janela gráfica.
