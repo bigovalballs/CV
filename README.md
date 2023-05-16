@@ -22,4 +22,13 @@ Para executar o algoritmo genético, basta compilar o código-fonte Java.
 
 - O **JFrame**  adiciona o painel Mundo ao quadro. O quadro é então exibido para o usuário. 
 
-## Mundo
+## CVUtils
+
+- Essa classe contém vários métodos utilitários que são usados para resolver o problema do caixeiro viajante.
+- A classe **CVUtils** possui os seguintes métodos:
+  - **getNumCidades()**: Solicita ao usuário que insira o número de cidades e retorna o número. 
+  - **generateData()**: Gera um conjunto aleatório de cidades e retorna as cidades como um array.
+  - **randomIndex()**: Retorna um índice aleatório de um intervalo especificado.
+  - **split()**: Divide uma lista em duas listas com base em um índice aleatório.
+
+## CVUtils
