@@ -1,0 +1,47 @@
+import java.util.Objects;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
+public class CVGene {
+	// coordenadas do gene
+    private final int x;
+    private final int y;
+    
+    // construtor	
+    CVGene(final int x,
+            final int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this.x + ", " + this.y+ ")";
+    }
+    // retorna a coordenada X do gene
+    int getX() {
+        return this.x;
+    }
+    // retorna a coordenada Y do gene
+    int getY() {
+        return this.y;
+    }
+    // calcula a distância entre este gene e outro gene passado como parâmetro
+    double distancia(final CVGene other) {
+        return sqrt(pow(getX() - other.getX(), 2) + pow(getY() - other.getY(), 2));
+    }
+    // sobrescreve o método toString para imprimir as coordenadas do gene
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final CVGene gene = (CVGene) o;
+        return this.x == gene.x &&
+                this.y == gene.y;
+    }
+    // sobrescreve o método hashCode para gerar o hashcode do objeto baseado nas coordenadas X e Y
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.x, this.y);
+    }
+}
