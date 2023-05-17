@@ -10,13 +10,22 @@ O algoritmo genético é encerrado após um certo número de gerações ou quand
 
 Para executar o algoritmo genético, basta compilar o código-fonte Java.
 
-https://github.com/bigovalballs/CV/assets/109481745/29cea702-c7b2-4ac1-a3ed-55181f6e24f5
+
+
+
+https://github.com/bigovalballs/CV/assets/109481745/2a1a2aec-b8f6-4227-9527-ad00bba21e02
+
+
 
 
 Dados do teste: População: 100 / Número de cidades : 50 / Velocidade de Updates : 10ms / Plateau : Geração 415
 
 
-https://github.com/bigovalballs/CV/assets/109481745/d31c4915-7408-47bd-81ee-a31b687ecfdc
+
+
+https://github.com/bigovalballs/CV/assets/109481745/1cf97c8a-5487-404b-8db2-9ce114460ab5
+
+
 
 
 Dados do teste: População: 10000 / Número de cidades : 50 / Velocidade de Updates de geração : 20ms / Plateau : Geração 142
